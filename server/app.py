@@ -4,8 +4,7 @@ from flask_restful import Api, Resource
 from flask_cors import CORS
 from models import db, Student, Lending, Book
 import os
-from dotenv import load_dotenv
-load_dotenv()
+
 
 
 app = Flask(__name__)
