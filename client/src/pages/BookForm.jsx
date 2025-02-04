@@ -21,9 +21,8 @@ const BookForm = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { resetForm }) => {
-        // Send data to the Flask API
         axios
-          .post("http://127.0.0.1:5555/books", values)
+          .post("https://library-lending-system-db.onrender.com/books", values)
           .then((response) => {
             alert("Book added successfully!");
             resetForm();

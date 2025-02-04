@@ -22,7 +22,7 @@ const StudentForm = () => {
       onSubmit={(values, { resetForm }) => {
         // Submit form data to Flask API
         axios
-          .post("http://127.0.0.1:5555/students", values)
+          .post("https://library-lending-system-db.onrender.com/students", values)
           .then((response) => {
             alert("Student added successfully!");
             resetForm(); // Clear form fields after success

@@ -4,8 +4,7 @@ import axios from "axios";
 const BorrowingRecords = () => {
   const [records, setRecords] = useState([]);
   const [search, setSearch] = useState("");
-  const [editableRecords, setEditableRecords] = useState({}); // Track edited BorrowDate & ReturnDate
-  const [loading, setLoading] = useState(null); // Track which row is loading
+  const [loading, setLoading] = useState(null);
 
   // Fetch Lending Records
   useEffect(() => {
@@ -14,20 +13,9 @@ const BorrowingRecords = () => {
 
   const fetchRecords = () => {
     axios
-      .get("http://127.0.0.1:5555/lendings")
+      .get("https://library-lending-system-db.onrender.com/lendings")
       .then((response) => {
         setRecords(response.data.data);
-
-        // Pre-fill BorrowDate & ReturnDate
-        const prefilledRecords = response.data.data.reduce((acc, record) => {
-          acc[record.id] = {
-            BorrowDate: record.BorrowDate,
-            ReturnDate: record.ReturnDate,
-          };
-          return acc;
-        }, {});
-
-        setEditableRecords(prefilledRecords);
       })
       .catch((error) => console.error("Error fetching records:", error));
   };
@@ -40,12 +28,11 @@ const BorrowingRecords = () => {
     }
 
     axios
-      .get(`http://127.0.0.1:5555/lendings/${search}`)
+      .get(`https://library-lending-system-db.onrender.com/lendings/${search}`)
       .then((response) => {
         setRecords([response.data.data]);
-        setEditableRecords({ [response.data.data.id]: response.data.data });
       })
-      .catch(() => alert("Student not found!"));
+      .catch(() => alert("Lending record not found!"));
   };
 
   // Reset Search
@@ -54,51 +41,15 @@ const BorrowingRecords = () => {
     fetchRecords();
   };
 
-  // Handle BorrowDate & ReturnDate Edit
-  const handleEdit = (id, field, value) => {
-    setEditableRecords({
-      ...editableRecords,
-      [id]: { ...editableRecords[id], [field]: value },
-    });
-  };
-
-  // Handle Update
-  const handleUpdate = async (id) => {
-    setLoading(id); // Set loading state for this row
-    const updatedRecord = {
-      BorrowDate: editableRecords[id].BorrowDate,
-      ReturnDate: editableRecords[id].ReturnDate,
-    };
-
-    try {
-      await axios.patch(`http://127.0.0.1:5555/lendings/${id}`, updatedRecord);
-      setRecords(
-        records.map((record) =>
-          record.id === id ? { ...record, ...updatedRecord } : record
-        )
-      );
-      alert("Record updated successfully!");
-    } catch (error) {
-      console.error("Error updating record:", error);
-      alert("Failed to update record.");
-    } finally {
-      setLoading(null); // Reset loading state
-    }
-  };
-
   // Handle Delete
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this lending and related data?"))
-      return;
+    if (!window.confirm("Are you sure you want to delete this lending record?")) return;
     setLoading(id); // Set loading state for this row
 
     try {
-      await axios.delete(`http://127.0.0.1:5555/lendings/${id}`);
+      await axios.delete(`https://library-lending-system-db.onrender.com/lendings/${id}`);
       setRecords(records.filter((record) => record.id !== id));
-      const newEditableRecords = { ...editableRecords };
-      delete newEditableRecords[id];
-      setEditableRecords(newEditableRecords);
-      alert("Lending deleted successfully!");
+      alert("Lending record deleted successfully!");
     } catch (error) {
       console.error("Error deleting record:", error);
       alert("Failed to delete record.");
@@ -113,7 +64,7 @@ const BorrowingRecords = () => {
       <div>
         <input
           type="number"
-          placeholder="Search Student by Lending ID"
+          placeholder="Search Lending ID"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -143,24 +94,8 @@ const BorrowingRecords = () => {
               <td>{record["Book ID"]}</td>
               <td>{record.Author}</td>
               <td>{record["Book Title"]}</td>
-              <td>
-                <input
-                  type="text"
-                  value={editableRecords[record.id]?.BorrowDate || ""}
-                  onChange={(e) =>
-                    handleEdit(record.id, "BorrowDate", e.target.value)
-                  }
-                />
-              </td>
-              <td>
-                <input
-                  type="text"
-                  value={editableRecords[record.id]?.ReturnDate || ""}
-                  onChange={(e) =>
-                    handleEdit(record.id, "ReturnDate", e.target.value)
-                  }
-                />
-              </td>
+              <td>{record.BorrowDate}</td>
+              <td>{record.ReturnDate}</td>
               <td>{record["Student ID"]}</td>
               <td>
                 <button
@@ -171,12 +106,7 @@ const BorrowingRecords = () => {
                 </button>
               </td>
               <td>
-                <button
-                  onClick={() => handleUpdate(record.id)}
-                  disabled={loading === record.id}
-                >
-                  {loading === record.id ? "Updating..." : "Update"}
-                </button>
+                <button >Update</button> 
               </td>
             </tr>
           ))}

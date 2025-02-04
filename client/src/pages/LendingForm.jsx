@@ -2,11 +2,9 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
-const LendingForm = () => {
-  const navigate = useNavigate();
-  
+
+const LendingForm = () => {  
   const validationSchema = Yup.object({
     Student_id: Yup.number()
       .required("Student ID is required")
@@ -14,10 +12,8 @@ const LendingForm = () => {
     Book_id: Yup.number()
       .required("Book ID is required")
       .min(1, "Book ID must be a positive number"),
-    BorrowDate: Yup.date().required("Borrow Date is required"),
-    ReturnDate: Yup.date()
-      .required("Return Date is required")
-      .min(Yup.ref("BorrowDate"), "Return Date cannot be before Borrow Date"),
+    BorrowDate: Yup.string().required("Borrow Date is required"),
+    ReturnDate: Yup.string().required("Borrow Date is required"),
   });
 
   return (
@@ -32,7 +28,7 @@ const LendingForm = () => {
       onSubmit={(values, { resetForm }) => {
         // Submit form data to Flask API
         axios
-          .post("http://127.0.0.1:5555/lendings", values)
+          .post("https://library-lending-system-db.onrender.com/lendings", values)
           .then((response) => {
             alert("Lending record added successfully!");
             resetForm(); // Clear form fields after success

@@ -1,21 +1,20 @@
-# Library Lending System Built with React and Flask  
+# Library Lending Backend Built with Flask  
 #### By **Abdul Aljawaab**  
 
 ## Description  
-The **Library Lending System** is a web application that allows librarians to manage books, students, and borrowing records. The system includes features for adding new books, registering students, lending books, and managing borrowing records. It uses a Flask backend for data management and a React frontend for a user-friendly interface.
-
+The **Library Lending System Backend** is a web application that allows librarians to manage books, students, and borrowing records. The system includes features for adding new books, registering students, lending books, and managing borrowing records. It uses a Flask backend for data management.
 ---
 
 ## How to Use  
 ### Requirements    
 * Python 3.6 or higher installed on your system.  
-* Flask for the backend API.  
-* React for the frontend.  
+* Flask for the backend API.    
 
 ### Setup Instructions  
-1. **Clone the Repository**:  
+1. **Clone the Repository**
+**Access to the Repo**  https://github.com/Aljawaab/Library_Lending_System.git  
     ```bash  
-    git clone https://github.com/Aljawaab/Library_Lending_System.git 
+    git clone git@github.com:Aljawaab/Library_Lending_System.git
     cd Library_Lending_System  
     ```
 
@@ -47,9 +46,6 @@ The **Library Lending System** is a web application that allows librarians to ma
     npm run dev  
     ```  
 
-4. **Access the Application**:  
-    Open your browser and navigate to [http://localhost:
-
 ## Features  
 * **Add New Books**: Add books with details like title, author, and number of copies.  
 * **Manage Borrowing Records**: View, update, and delete borrowing records.  
@@ -58,40 +54,17 @@ The **Library Lending System** is a web application that allows librarians to ma
 * **Responsive Design**: The application is designed to work seamlessly on all devices.
 
 ## Technologies Used  
-* **React**: Frontend framework for building the user interface.  
 * **Flask**: Backend framework for handling API requests.  
 * **SQLite**: Database for persistent data storage.  
-* **Axios**: For making HTTP requests to the backend.  
-* **CSS**: For styling the application.
-
-## Navigation Instructions  
-When you open the application, you will see a navigation bar with the following options:  
-* **Home**: The homepage of the application.  
-* **Add New Book**: Navigate to the form for adding new books.  
-* **Borrowing Records**: View and manage borrowing records.  
-* **Lend Book**: Navigate to the form for lending books to students.  
-* **Add Student**: Navigate to the form for adding new students.
 
 ## Files in the Project  
 ### Backend (server) 
 * **app.py**: The main Flask application file.  
 * **models.py**: Contains the database models for students, books, and lendings.  
 
-### Frontend (client) 
-* **src/AddNewBook.js**: Component for adding new books.  
-* **src/BorrowingRecords.js**: Component for managing borrowing records.  
-* **src/LendingForm.js**: Component for lending books.  
-* **src/StudentForm.js**: Component for adding new students.  
-* **src/Home.js**: The homepage component.  
-* **src/Navbar.js**: The navigation bar component.  
-* **src/App.js**: The main React application file.  
-* **src/index.css**: Global styles for the application.
 
 ## Future Enhancements  
-* Add a search feature to find specific books, students, or borrowing records.  
 * Implement user authentication for librarians.  
-* Add pagination for the borrowing records table.  
-* Improve error handling and user feedback.
 
 ## License  
 MIT License  
